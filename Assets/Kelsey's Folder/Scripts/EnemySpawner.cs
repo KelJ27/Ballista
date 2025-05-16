@@ -2,22 +2,28 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] Transform spawner;
     [SerializeField] Transform enemyPrefab;
+    [SerializeField] Transform player;
     int x = 0;
     int y = 0;
 
-    void Start()
+    private void Start()
     {
-        Instantiate(enemyPrefab, new Vector3(0,1,0), Quaternion.identity);
-        Instantiate(enemyPrefab, new Vector3(0,2,0), Quaternion.identity);
-        Instantiate(enemyPrefab, new Vector3(0,3,0), Quaternion.identity);
-        Instantiate(enemyPrefab, new Vector3(0,4,0), Quaternion.identity);
-        Instantiate(enemyPrefab, new Vector3(0,5,0), Quaternion.identity);
+        SpawnEnemy();
+    }
+
+    private void Update()
+    {
         
     }
 
-    void Update()
+    private void SpawnEnemy()
     {
-        
+        Instantiate(enemyPrefab, new Vector3(Random.Range(-3f, 3f),Random.Range(-3f, 3f),0), Quaternion.identity, spawner);
+        Instantiate(enemyPrefab, new Vector3(Random.Range(-3f, 3f),Random.Range(-3f, 3f),0), Quaternion.identity, spawner);
+        Instantiate(enemyPrefab, new Vector3(Random.Range(-3f, 3f),Random.Range(-3f, 3f),0), Quaternion.identity, spawner);
+        Instantiate(enemyPrefab, new Vector3(Random.Range(-3f, 3f),Random.Range(-3f, 3f),0), Quaternion.identity, spawner);
+
     }
 }
