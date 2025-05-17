@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Player;
     [SerializeField] float movementSpeed = 5f;
+
+    private void Awake()
+    {
+        PlayerController.Player = this;
+    }
 
     void Update()
     {
