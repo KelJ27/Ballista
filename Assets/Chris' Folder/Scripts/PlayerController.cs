@@ -1,13 +1,23 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Player;
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private float _health = 100f;
+
+    public Action<float> OnHealthChange;
 
     private void Awake()
     {
         PlayerController.Player = this;
+    }
+
+    private void Start()
+    {
+        this._health = this._maxHealth;
     }
 
     void Update()
@@ -27,6 +37,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += Time.deltaTime * new Vector3(-movementSpeed, 0f, 0f);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        this._health -= damage;
+        this.OnHealthChange?.Invoke(this._health);
+
+        if (this._health <= 0f)
+        {
+            Debug.Log("Player DET!!");
+            Destroy(gameObject);
         }
     }
 }
