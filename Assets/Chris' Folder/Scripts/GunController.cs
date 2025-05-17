@@ -4,13 +4,12 @@ public class GunController : MonoBehaviour
 {
     [SerializeField] private float _distanceFromPlayer = 0.75f;
     [SerializeField] private Transform _bulletPrefab;
-    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private Transform[] _shootPoints;
     [SerializeField] private Transform _bulletContainer;
     [SerializeField] private int _rateOfFirePerSecond = 50;
     private float _minTimeBetweenEachShot => 1000 / this._rateOfFirePerSecond;
     private float _timeSinceLastShot = float.MaxValue;
     private bool _canShoot => this._timeSinceLastShot >= this._minTimeBetweenEachShot;
-
 
     private void Update()
     {
@@ -26,8 +25,12 @@ public class GunController : MonoBehaviour
 
     private void Shoot()
     {
-        BulletController bullet = Instantiate(this._bulletPrefab, this._shootPoint.position, Quaternion.identity, this._bulletContainer).GetComponent<BulletController>();
-        bullet.SetAimDirection(Helpers.GetDirectionTowardsCursor(transform.position));
+        foreach (Transform shootPoint in this._shootPoints)
+        {
+            BulletController bullet = Instantiate(this._bulletPrefab, shootPoint.position, Quaternion.identity, this._bulletContainer).GetComponent<BulletController>();
+            bullet.SetAimDirection(Helpers.GetDirectionTowardsPosition(transform.position, shootPoint.position));
+            bullet.LookAtShootPoint(transform.position, shootPoint.position);
+        }
         this._timeSinceLastShot = 0;
     }
 
