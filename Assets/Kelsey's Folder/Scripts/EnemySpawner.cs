@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -21,31 +22,49 @@ public class EnemySpawner : MonoBehaviour
         SpawnEnemy();
     }
 
-    private void Update()
+    private async void Update()
     {
-        
+
+        SpawnEnemy();
+        //await UniTask.WaitForSeconds(10f);
     }
 
     private void SpawnEnemy()
     {
         int spawnSide = Random.Range(1, 4);
+        Vector3 playerPos = GetPlayerPos();
+
+
         switch (spawnSide)
         {
             case (int)SpawnSide.Up:
-                Instantiate(enemyPrefab, new Vector3(Random.Range(-15f, 15f), cameraBoundsY, 0), Quaternion.identity, spawner);
+                float playerYPosOutsideCameraView = playerPos.y + cameraBoundsY;
+                float playerRandXPosOutsideCameraView = playerPos.x + Random.Range(-cameraBoundsX, cameraBoundsX);
+                Instantiate(enemyPrefab, new Vector3(playerRandXPosOutsideCameraView, playerYPosOutsideCameraView, 0), Quaternion.identity, spawner);
                 break;
             case (int)SpawnSide.Down:
-                Instantiate(enemyPrefab, new Vector3(Random.Range(-15f, 15f), -cameraBoundsY, 0), Quaternion.identity, spawner);
+                playerYPosOutsideCameraView = playerPos.y - cameraBoundsY;
+                playerRandXPosOutsideCameraView = playerPos.x + Random.Range(-cameraBoundsX, cameraBoundsX);
+                Instantiate(enemyPrefab, new Vector3(playerRandXPosOutsideCameraView, playerYPosOutsideCameraView, 0), Quaternion.identity, spawner);
                 break;
             case (int)SpawnSide.Left:
-                Instantiate(enemyPrefab, new Vector3(-cameraBoundsX, Random.Range(-15f, 15f), 0), Quaternion.identity, spawner);
+                float playerRandYPosOutsideCameraView = playerPos.y + Random.Range(-cameraBoundsY, cameraBoundsY);
+                float playerXPosOutsideCameraView = playerPos.x - cameraBoundsX;
+                Instantiate(enemyPrefab, new Vector3(playerXPosOutsideCameraView, playerRandYPosOutsideCameraView, 0), Quaternion.identity, spawner);
                 break;
             case (int)SpawnSide.Right:
-                Instantiate(enemyPrefab, new Vector3(cameraBoundsX, Random.Range(-15f, 15f), 0), Quaternion.identity, spawner);
+                playerRandYPosOutsideCameraView = playerPos.y + Random.Range(-cameraBoundsY, cameraBoundsY);
+                playerXPosOutsideCameraView = playerPos.x + cameraBoundsX;
+                Instantiate(enemyPrefab, new Vector3(playerXPosOutsideCameraView, playerRandYPosOutsideCameraView, 0), Quaternion.identity, spawner);
                 break;
             default:
                 break;
         }
+    }
+
+    private Vector3 GetPlayerPos()
+    {
+        return player.transform.position;
     }
 
 }
