@@ -24,12 +24,6 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         MoveTowardsPlayer();
-        //FlashDamageColor();
-    
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage();
-        }
     }
 
     private void MoveTowardsPlayer()
@@ -50,14 +44,14 @@ public class Enemy : MonoBehaviour
         healthBar.fillAmount = currentHealth / maxHealth;
     }
 
-    public async void TakeDamage()
+    public async void TakeDamage(float damageAmount)
     {
-        currentHealth -= 2;
+        currentHealth -= damageAmount;
 
         await FlashDamageColor();
         DecreaseHealthBar();
 
-        if (this.currentHealth == 0)
+        if (this.currentHealth <= 0)
         {
             Destroy(gameObject);
         }
