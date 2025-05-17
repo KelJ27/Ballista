@@ -3,11 +3,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 2f;
-    [SerializeField] Transform target;
+    
+    PlayerController target = PlayerController.Player;
 
     private void Start()
     {
-        
+
     }
 
     private void Update()
@@ -17,6 +18,6 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        this.transform.position = Vector2.MoveTowards(this.transform.position, this.target.position, this.movementSpeed * Time.deltaTime);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, this.target.transform.position, this.movementSpeed * Time.deltaTime);
     }
 }
