@@ -364,6 +364,7 @@ MonoBehaviour:
   _distanceFromPlayer: 0.75
   _bulletPrefab: {fileID: 3727161591773518641, guid: a16bad38536be104ca05985db0e755ac, type: 3}
   _shootPoint: {fileID: 614494780}
+  _rateOfFirePerSecond: 50
 --- !u!212 &524830677
 SpriteRenderer:
   m_ObjectHideFlags: 0
