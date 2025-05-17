@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -17,23 +16,29 @@ public class EnemySpawner : MonoBehaviour
     private const float cameraBoundsX = 10f;
     private const float cameraBoundsY = 6f;
 
+    private float spawnTimeMs = 100f;
+    private float timeSinceLastSpawn = 0f;
+
     private void Start()
     {
         SpawnEnemy();
     }
 
-    private async void Update()
+    private void Update()
     {
+        timeSinceLastSpawn += Time.deltaTime * 1000;
 
-        SpawnEnemy();
-        //await UniTask.WaitForSeconds(10f);
+        if (timeSinceLastSpawn >= spawnTimeMs)
+        {
+            SpawnEnemy();
+            timeSinceLastSpawn = 0;
+        }
     }
 
     private void SpawnEnemy()
     {
-        int spawnSide = Random.Range(1, 4);
+        int spawnSide = Random.Range(1, 5);
         Vector3 playerPos = GetPlayerPos();
-
 
         switch (spawnSide)
         {
