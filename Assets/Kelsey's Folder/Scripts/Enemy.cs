@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour
         if (this.currentHealth <= 0)
         {
             Destroy(gameObject);
+            Globals.enemyKills++;
         }
     }
 
