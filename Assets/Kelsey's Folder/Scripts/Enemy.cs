@@ -40,8 +40,14 @@ public class Enemy : MonoBehaviour
     {
         this.sr.color = Color.red;
         await UniTask.WaitForSeconds(0.05f);
-        this.sr.color = Color.white;
 
+        if (this == null)
+        {
+            return;
+        }
+
+        this.sr.color = Color.white;
+        
     }
 
     private void DecreaseHealthBar()
@@ -54,6 +60,12 @@ public class Enemy : MonoBehaviour
         currentHealth -= damageAmount;
 
         await FlashDamageColor();
+
+        if (this == null)
+        {
+            return;
+        }
+
         DecreaseHealthBar();
 
         if (this.currentHealth <= 0)
