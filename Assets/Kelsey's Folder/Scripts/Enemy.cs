@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
 
         await FlashDamageColor();
         DecreaseHealthBar();
-        
+
         if (this.currentHealth <= 0)
         {
             Destroy(gameObject);
@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        target.TakeDamage(this.atkDamage);
+        player.TakeDamage(this.atkDamage);
     }
 
 
