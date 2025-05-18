@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 2f;
-    [SerializeField] private float maxHealth = 10;
-    [SerializeField] private int atkDamage = 2;
-
+    [SerializeField] protected EnemyStatsSO enemyStatsSO;
     [SerializeField] private Image healthBar;
+    protected float movementSpeed;
+    protected float maxHealth;
+    protected int atkDamage;
+
     private SpriteRenderer sr;
 
     private float currentHealth;
 
-    private void Start()
+    protected void Start()
     {
         sr = this.GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
 
         await FlashDamageColor();
         DecreaseHealthBar();
-
+        
         if (this.currentHealth <= 0)
         {
             Destroy(gameObject);
