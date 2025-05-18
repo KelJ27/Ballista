@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f242ba283ef37804191a9d70be96f3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deadPlayerPrefab: {fileID: 2046847917919537807, guid: 14daa30cebd995b4f93e4cc3b2e78a30, type: 3}
   movementSpeed: 8
   _maxHealth: 100
   _health: 100

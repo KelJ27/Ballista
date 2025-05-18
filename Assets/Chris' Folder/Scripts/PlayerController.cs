@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Player;
+    [SerializeField] private Transform _deadPlayerPrefab;
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _health = 100f;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
         if (this._health <= 0f)
         {
+            Instantiate(this._deadPlayerPrefab, transform.position, Quaternion.identity);
             PlayerController.OnPlayerDies?.Invoke();
             Destroy(gameObject);
         }
