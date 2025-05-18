@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private float maxHealth = 10;
-    [SerializeField] private int atk = 2;
+    [SerializeField] private int atkDamage = 2;
 
     [SerializeField] private Image healthBar;
     private SpriteRenderer sr;
@@ -62,9 +62,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void DamagePlayer()
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.transform.TryGetComponent(out PlayerController player))
+        {
+            return;
+        }
 
+        target.TakeDamage(this.atkDamage);
     }
 
 
