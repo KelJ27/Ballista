@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Image healthBar;
     private SpriteRenderer sr;
 
-    private PlayerController target = PlayerController.Player;
     private float currentHealth;
 
     private void Start()
@@ -23,12 +22,17 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (!GameUIController.IsGameActive)
+        {
+            return;
+        }
+
         MoveTowardsPlayer();
     }
 
     private void MoveTowardsPlayer()
     {
-        this.transform.position = Vector2.MoveTowards(this.transform.position, this.target.transform.position, this.movementSpeed * Time.deltaTime);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, PlayerController.Player.transform.position, this.movementSpeed * Time.deltaTime);
     }
 
     private async Task FlashDamageColor()
@@ -36,7 +40,7 @@ public class Enemy : MonoBehaviour
         this.sr.color = Color.red;
         await UniTask.WaitForSeconds(0.05f);
         this.sr.color = Color.white;
-        
+
     }
 
     private void DecreaseHealthBar()

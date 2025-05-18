@@ -12,7 +12,6 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] Transform spawner;
     [SerializeField] Transform enemyPrefab;
-    [SerializeField] Transform player;
     private const float cameraBoundsX = 10f;
     private const float cameraBoundsY = 6f;
 
@@ -21,11 +20,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnEnemy();
     }
 
     private void Update()
     {
+        if (!GameUIController.IsGameActive)
+        {
+            return;
+        }
+
         timeSinceLastSpawn += Time.deltaTime * 1000;
 
         if (timeSinceLastSpawn >= spawnTimeMs)
@@ -69,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetPlayerPos()
     {
-        return player.transform.position;
+        return PlayerController.Player.transform.position;
     }
 
 }
