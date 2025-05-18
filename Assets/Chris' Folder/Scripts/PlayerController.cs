@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _health = 100f;
 
     public Action<float> OnHealthChange;
+    public static Action OnPlayerDies;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         if (this._health <= 0f)
         {
-            Debug.Log("Player DET!!");
+            PlayerController.OnPlayerDies?.Invoke();
             Destroy(gameObject);
         }
     }
