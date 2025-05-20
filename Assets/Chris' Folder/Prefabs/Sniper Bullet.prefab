@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 20
-  _damage: 1
-  _maxLifeTimeMilliseconds: 2
+  _damage: 2
+  _maxLifeTimeSeconds: 2
   _shouldDestroyAfterHittingTarget: 0
 --- !u!61 &4096889473500349162
 BoxCollider2D:

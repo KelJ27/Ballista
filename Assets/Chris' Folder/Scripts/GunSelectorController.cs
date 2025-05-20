@@ -6,8 +6,9 @@ public class GunSelectorController : MonoBehaviour
 {
     [SerializeField] private GunController[] _guns = Array.Empty<GunController>();
     private int[] _keyboardNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-
     private int _currentGunIndex = 0;
+
+    public static Action<int> OnGunSelected;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class GunSelectorController : MonoBehaviour
         this.HideAllGuns();
         this._guns[gunIndex].gameObject.SetActive(true);
         this._currentGunIndex = gunIndex;
+        GunSelectorController.OnGunSelected?.Invoke(gunIndex);
     }
 
     private void HideAllGuns()

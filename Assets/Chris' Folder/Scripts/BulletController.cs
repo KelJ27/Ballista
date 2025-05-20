@@ -5,7 +5,7 @@ public class BulletController : MonoBehaviour
     private Vector3 _aimDirection;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _damage = 1f;
-    [SerializeField] private float _maxLifeTimeMilliseconds = 2f;
+    [SerializeField] private float _maxLifeTimeSeconds = 2f;
     [SerializeField] private bool _shouldDestroyAfterHittingTarget = true;
     private float _timeSinceSpawn = 0;
 
@@ -14,7 +14,7 @@ public class BulletController : MonoBehaviour
         this._timeSinceSpawn += Time.deltaTime;
         this.transform.position += this._aimDirection * this._movementSpeed * Time.deltaTime;
 
-        if (this._timeSinceSpawn >= this._maxLifeTimeMilliseconds)
+        if (this._timeSinceSpawn >= this._maxLifeTimeSeconds)
         {
             Destroy(gameObject);
         }
