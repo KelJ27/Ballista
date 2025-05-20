@@ -6,6 +6,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _damage = 1f;
     [SerializeField] private float _maxLifeTimeMilliseconds = 2f;
+    [SerializeField] private bool _shouldDestroyAfterHittingTarget = true;
     private float _timeSinceSpawn = 0;
 
     private void Update()
@@ -39,6 +40,10 @@ public class BulletController : MonoBehaviour
         }
 
         enemy.TakeDamage(this._damage);
-        Destroy(gameObject);
+
+        if (this._shouldDestroyAfterHittingTarget)
+        {
+            Destroy(gameObject);
+        }
     }
 }

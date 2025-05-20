@@ -5,6 +5,8 @@ using UnityEngine;
 public class GunSelectorController : MonoBehaviour
 {
     [SerializeField] private GunController[] _guns = Array.Empty<GunController>();
+    private int[] _keyboardNumbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
     private int _currentGunIndex = 0;
 
     void Start()
@@ -14,13 +16,17 @@ public class GunSelectorController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        CheckSwapWeaponUserInputs();
+    }
+
+    private void CheckSwapWeaponUserInputs()
+    {
+        foreach (int keyboardNum in this._keyboardNumbers)
         {
-            this.SelectGun(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.SelectGun(1);
+            if (Input.GetKeyDown(keyboardNum.ToAlphaKeyCode()) || Input.GetKeyDown(keyboardNum.ToKeypadKeyCode()))
+            {
+                this.SelectGun(keyboardNum - 1);
+            }
         }
     }
 
